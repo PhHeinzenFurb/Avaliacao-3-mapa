@@ -1,7 +1,24 @@
 ---
-title: "Mapa"
-author: "grupo"
-server: shiny
-format: html
+title: "r-shinylive-demo"
+filters: 
+  - shinylive
 ---
 
+```{shinylive-r}
+#| standalone: true # apenas um app shiny
+
+library(shiny)
+
+# definindo o Shiny UI
+ui <- fluidPage(
+  # componentes da UI vem aqui
+)
+
+# definindo a logica do servidor
+server <- function(input, output, session) {
+  # codigo do servidor vem aqui
+}
+
+# criando e lancando o app Shiny
+shinyApp(ui, server)
+```
