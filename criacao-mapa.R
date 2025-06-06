@@ -37,18 +37,23 @@ internet_world_df_robinson <- internet_world_df |>
 plot(sf::st_geometry(internet_world_df_robinson))
 
 # transformando a coluna Year em numerico
-internet_world_df_robinson$Year <- as.numeric(internet_world_df_robinson$Year)
+internet_world_df_robinson$time <- as.Date(paste0(internet_world_df_robinson$Year, "-01-01"))
 
 p <- ggplot(filter(internet_world_df_robinson)) +
   geom_sf(aes(fill = users)) +
   theme_minimal() +
   labs(
-    title = "Acesso a internet",
-    subtitle = "Data: {frame_along}"
+    title = "Acesso Internet",
+    subtitle = "Ano: {current_frame}"
   ) +
-  transition_manual(Year)
+  transition_manual(time)
 
-
+anim <- animate(
+  p,            # seu ggplot com transition_manual()
+  nframes = 60, # aumenta o número de frames (mais "suave")
+  fps = 5,      # reduz a taxa de quadros por segundo → anima mais devagar
+  duration = 20 # aumenta o tempo total da animação
+)
   
   
   
