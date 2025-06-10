@@ -5,62 +5,100 @@ editor: visual
 ---
 
 ```{r}
-#| include: FALSE
+#| context: setup
+#| include: false
+
 library(wbstats)
 library(tidyverse)
+library(sf)
 library(rnaturalearth)
 library(gganimate)
-library(sf)
 library(gifski)
 
-internet_df <- wbstats::wb_data(
-  indicator = "IT.NET.USER.ZS",
+# códigos a serem utilizados
+# Exportações e Importações de Bens e Serviços (% do PIB) 
+# (NE.EXP.GNFS.ZS,NE.IMP.GNFS.ZS)
+
+my_ids <- c("Exportacao (%PIB)" = "NE.EXP.GNFS.ZS",
+            "Importacao (%PIB)" = "NE.IMP.GNFS.ZS")
+
+# extraindo dados do banco mundial
+exp_imp_df <- wb_data(
+  indicator = my_ids,
   country = "countries_only",
-  start_date = 2001, end_date = 2022 
+  start_date = 1980, end_date = 2023
 )
 
-# selecionando colunas
-internet_world_df <- internet_df |>
-  dplyr::select(, c(1, 4:5))
+# extraindo dados geoespaciais dos paises
+europe_map <- ne_countries(scale = "small", type = "countries",
+                          continent = "Europe") |>
+  select(iso_a2, name, subregion)
 
-# renomeando colunas
-names(internet_world_df) <-
-  c("iso2c", "Year", "users")
+# juntando exp_imp_df e world_map
+exp_imp_map_eu <- exp_imp_df |>
+  inner_join(europe_map, by = c("iso2c" = "iso_a2")) |>
+  st_as_sf()
 
-# fazendo o download do shapefile do mapa
-world_sf <- rnaturalearth::ne_countries(
-  type = "countries", scale = "small"
-) |> dplyr::select(iso_a2, name)
+# utilizando Lambert Conformal Conic para o mapa da europa
+exp_imp_map_lamb <- st_transform(exp_imp_map_eu, crs = 3035)
 
-# juntando as duas tabelas
-internet_world_df <- dplyr::left_join(
-  world_sf, internet_world_df,
-  by = c("iso_a2" = "iso2c")
-)
 
-# ajustando a projecao para aliviar as distorcoes
-robinson_crs <- "+proj=robin +lon_0=0 +y_0=0 +ellps=WGS84 + datum=WGS84 +units=m +no_defs"
-internet_world_df_robinson <- internet_world_df |>
-  sf::st_transform(robinson_crs)
-plot(sf::st_geometry(internet_world_df_robinson))
-
-# transformando a coluna Year em numerico
-internet_world_df$Year <- as.numeric(internet_world_df$Year)
 ```
 
 ```{r}
-#| label: endividamento-famílias
 #| warning: false
 #| echo: false
-#| fig.cap: "Mapa animado de acesso à internet"
 
-ggplot(filter(internet_world_df)) +
-  geom_sf(aes(fill = users)) +
-  theme_minimal() +
+# criando plot de mapa
+p <- ggplot(exp_imp_map_lamb) +
+  geom_sf(aes(fill = `Importacao (%PIB)`)) +
   labs(
-    title = "Acesso a internet",
-    subtitle = "Data: {current_frame}"
+    title = "{current_frame}"
   ) +
-  transition_manual(Year)
+  transition_manual(date)
+
+# ajustando o fps
+animate(p, fps = 3.5)
+
+```
+
+```{r}
+#| include: false
+
+# extraindo dados geoespaciais dos paises
+world_map <- ne_countries(scale = "small", type = "countries") |>
+  select(iso_a2, name, subregion)
+
+# juntando exp_imp_df e world_map
+exp_imp_map <- exp_imp_df |>
+  inner_join(world_map, by = c("iso2c" = "iso_a2")) |>
+  st_as_sf()
+
+# listando código para projeção de Robinson
+robinson_code <- "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs"
+
+# utilizando Lambert Conformal Conic para o mapa da europa
+exp_imp_map_proj <- st_transform(exp_imp_map, crs = robinson_code)
+
+
+```
+
+```{r}
+#| warning: false
+#| echo: false
+
+# criando plot de mapa
+p <- exp_imp_map_proj |>
+  filter(date >= 1985,
+         date <= 2000) |>
+  ggplot() +
+  geom_sf(aes(fill = `Importacao (%PIB)`)) +
+  labs(
+    title = "{current_frame}"
+  ) +
+  transition_manual(date)
+
+# ajustando o fps
+animate(p, fps = 10)
 
 ```
