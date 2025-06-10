@@ -2,6 +2,7 @@
 title: "Untitled"
 format: html
 editor: visual
+server: shiny
 ---
 
 ```{r}
@@ -13,7 +14,6 @@ library(tidyverse)
 library(sf)
 library(rnaturalearth)
 library(gganimate)
-library(gifski)
 
 # códigos a serem utilizados
 # Exportações e Importações de Bens e Serviços (% do PIB) 
@@ -101,4 +101,78 @@ p <- exp_imp_map_proj |>
 # ajustando o fps
 animate(p, fps = 10)
 
+```
+
+```{r}
+#| context: setup
+#| warning: false
+#| include: false
+
+library(bslib)
+
+options(scipen = 999)
+
+my_ids <- c("Exportacao (US$)" = "NE.EXP.GNFS.CD",
+            "Importacao (US$)" = "NE.IMP.GNFS.CD")
+
+# extraindo dados do banco mundial
+exp_imp_df <- wb_data(
+  indicator = my_ids,
+  country = "countries_only",
+  start_date = 1980, end_date = 2023
+)
+
+# extraindo dados geoespaciais dos paises
+world_map <- ne_countries(scale = "small", type = "countries", continent = "europe") |>
+  select(iso_a2, subregion, continent)
+
+# juntando exp_imp_df e world_map
+exp_imp_map <- exp_imp_df |>
+  inner_join(world_map, by = c("iso2c" = "iso_a2")) |>
+  select(country:continent)
+
+```
+
+```{r}
+
+layout_sidebar(
+  sidebar = sidebar(
+    shiny::selectizeInput(
+      "select_regioes",
+      "regioes_destacadas",
+      choices = c("Eastern Europe", "Northern Europe", "Southern Europe", "Western Europe"),
+      selected = c("Eastern Europe", "Northern Europe", "Southern Europe", "Western Europe"),
+      multiple = TRUE
+    ),
+    shiny::selectInput(
+      "ano_inicial",
+      "Selecione o ano inicial",
+      choices = seq(1980, 2023),
+      selected = 1985
+    ),
+    shiny::selectInput(
+      "ano_final",
+      "Selecione o ano",
+      choices = seq(1980, 2023),
+      selected = 2000
+    )
+  ),
+  shiny::plotOutput("output_plot")
+)
+```
+
+```{r}
+#| context: server
+
+output$output_plot <- shiny::renderPlot({
+  exp_imp_map |>
+    filter(
+      subregion %in% input$select_regioes,
+      date >= input$ano_inicial,
+      date <= input$ano_final
+    ) |>
+  ggplot() +
+  geom_bar(aes(fill = subregion, y = `Importacao (US$)`, x = date),
+           position = "dodge", stat = "identity") 
+})
 ```
