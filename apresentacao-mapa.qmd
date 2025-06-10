@@ -139,10 +139,15 @@ layout_sidebar(
   sidebar = sidebar(
     shiny::selectizeInput(
       "select_regioes",
-      "regioes_destacadas",
+      "Selecione a regiao:",
       choices = c("Eastern Europe", "Northern Europe", "Southern Europe", "Western Europe"),
       selected = c("Eastern Europe", "Northern Europe", "Southern Europe", "Western Europe"),
       multiple = TRUE
+    ),
+    shiny::varSelectInput(
+      "variavel",
+      "Selecione a série:",
+      exp_imp_map[, c(3, 4)]
     ),
     shiny::selectInput(
       "ano_inicial",
@@ -172,7 +177,7 @@ output$output_plot <- shiny::renderPlot({
       date <= input$ano_final
     ) |>
   ggplot() +
-  geom_bar(aes(fill = subregion, y = `Importacao (US$)`, x = date),
+  geom_bar(aes(fill = subregion, y = !!sym(input$variavel), x = date),
            position = "dodge", stat = "identity") 
 })
 ```
