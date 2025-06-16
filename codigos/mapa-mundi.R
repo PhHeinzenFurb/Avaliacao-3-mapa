@@ -4,6 +4,7 @@ library(sf)
 library(rnaturalearth)
 library(gganimate)
 library(gifski)
+library(ggthemes)
 
 # códigos a serem utilizados
 # Exportações e Importações de Bens e Serviços (% do PIB) 
@@ -34,16 +35,30 @@ robinson_code <- "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_d
 # utilizando Lambert Conformal Conic para o mapa da europa
 exp_imp_map_proj <- st_transform(exp_imp_map, crs = robinson_code)
 
+df_not_na <- na.omit(exp_imp_map_proj)
+
 # criando plot de mapa
 p <- exp_imp_map_proj |>
-  filter(date >= 1985,
-         date <= 2000) |>
   ggplot() +
   geom_sf(aes(fill = `Importacao (%PIB)`)) +
   labs(
-    title = "{current_frame}"
+    title = "Taxas de Importação entre 1985 - 2000 (% do PIB)",
+    subtitle = "Ano: {current_frame}"
   ) +
-  transition_manual(date)
+  theme(
+    plot.title = element_text(
+      face = "bold",
+      size = 15
+    )
+  ) +
+  transition_manual(date) +
+  scale_fill_fermenter(
+    name = "(% PIB)",
+    breaks = seq(0, 200, 30),
+    direction = 1,
+    palette = "YlGnBn"
+  ) +
+  theme_map()
 
 # ajustando o fps
-animate(p, fps = 10)
+animate(p, fps = 5)
