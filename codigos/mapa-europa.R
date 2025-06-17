@@ -34,7 +34,7 @@ exp_imp_map_eu <- exp_imp_df |>
 # utilizando Lambert Conformal Conic para o mapa da europa
 exp_imp_map_lamb <- st_transform(exp_imp_map_eu, crs = 3035)
 
-font_import()
+
 
 # criando plot de mapa
 p <- exp_imp_map_lamb |>

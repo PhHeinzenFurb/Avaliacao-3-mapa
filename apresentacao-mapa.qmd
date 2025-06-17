@@ -4,6 +4,15 @@ format: html
 editor: visual
 ---
 
+```{r}
+#| label: integrantes-grupo
+#| include: false
+#| 
+#| # Pedro Henrique Heinzen: gráficos e formatação do texto
+#| # Samuel Felipe Ronchi, Rogério de Oliveira Junior e Rafael Bruno Vargas 
+#| # estão trabalhando nos textos explicativos dos gráficos.
+```
+
 [Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
 
 ```{r}
@@ -17,6 +26,8 @@ library(sf)
 library(rnaturalearth)
 library(gganimate)
 library(ggthemes)
+
+options(scipen = 999)
 
 # códigos a serem utilizados
 # Exportações e Importações de Bens e Serviços (% do PIB) 
@@ -60,7 +71,7 @@ p <- exp_imp_map_proj |>
   ggplot() +
   geom_sf(aes(fill = `Importacao (%PIB)`)) +
  labs(
-    title = "Taxas de Importação entre 1985 - 2000 (% do PIB)",
+    title = "Taxas de Importação entre 1980 - 2023 (% do PIB)",
     subtitle = "Ano: {current_frame}"
   ) +
   theme(
@@ -83,26 +94,26 @@ animate(p, fps = 3.5)
 
 ```
 
+[Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+
 ```{r}
 #| label: dados-europa
 #| include: false
 
 # extraindo dados geoespaciais da europa
-europe_map <- ne_countries(scale = "small", type = "countries",
+mapa_europa <- ne_countries(scale = "small", type = "countries",
                           continent = "Europe") |>
   select(iso_a2, name, subregion)
 
 # juntando exp_imp_df e europe_map
 exp_imp_map_eu <- exp_imp_df |>
-  inner_join(europe_map, by = c("iso2c" = "iso_a2")) |>
+  inner_join(mapa_europa, by = c("iso2c" = "iso_a2")) |>
   st_as_sf()
 
 # utilizando Lambert Conformal Conic para o mapa da europa
 exp_imp_map_lamb <- st_transform(exp_imp_map_eu, crs = 3035)
 
 ```
-
-[Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
 
 ```{r}
 #| label: mapa-europa
@@ -136,3 +147,113 @@ p <- exp_imp_map_lamb |>
 animate(p, fps = 10)
 
 ```
+
+[Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+
+```{r}
+#| label: geracao-tratamento-dados
+#| warning: false
+#| include: false
+
+library(highcharter)
+library(bslib)
+
+my_ids <- c("Exportacao (US$)" = "NE.EXP.GNFS.CD",
+            "Importacao (US$)" = "NE.IMP.GNFS.CD")
+
+# extraindo dados do banco mundial
+exp_imp_df <- wb_data(
+  indicator = my_ids,
+  country = "countries_only",
+  start_date = 1980, end_date = 2023
+)
+
+# extraindo dados geoespaciais dos paises
+dados_europa <- ne_countries(scale = "small", type = "countries", continent = "europe") |>
+  select(iso_a2, subregion, continent)
+
+# juntando exp_imp_df e world_map
+exp_imp_comp <- exp_imp_df |>
+  inner_join(dados_europa, by = c("iso2c" = "iso_a2")) |>
+  select(country:continent)
+
+
+# tabela com dados de crescimento YoY
+df <- exp_imp_comp |>
+  mutate(across(everything(), ~ replace_na(., 0))) |>
+  group_by(date, subregion) |>
+  summarise(
+    `Exportacao (US$)` = sum(`Exportacao (US$)`),
+    `Importacao (US$)` = sum(`Importacao (US$)`)
+  ) |>
+  arrange(subregion, date) |>
+  group_by(subregion) |>
+  mutate(
+    lag_exp = lag(`Exportacao (US$)`),
+    lag_imp = lag(`Importacao (US$)`),
+    yoy_change_exp = ((`Exportacao (US$)` - lag_exp) / lag_exp) * 100,
+    yoy_change_imp = ((`Importacao (US$)` - lag_imp) / lag_imp) * 100
+  ) |>
+  ungroup() |>
+  select(-lag_exp) |>
+  select(-lag_imp)
+```
+
+```{r}
+#| label: graf-interativo-exportacao
+#| warning: false
+#| echo: false
+
+# gráfico interativo sobre exportações
+df|>
+  filter(
+    date >= 1985,
+    date <= 2000
+  ) |>
+  hchart("column", 
+              hcaes(x = date, y = `Exportacao (US$)`, group = subregion)
+       ) |>
+       hc_colors(c("#a3c1ad", "#a0d6b4", "#5f9ea0", "#317873")) |>
+       hc_tooltip(
+         useHTML = TRUE,
+         formatter = htmlwidgets::JS(
+           "function () {
+         var yoy_exp = this.point.yoy_change_exp !== null ? Highcharts.numberFormat(this.point.yoy_change_exp, 2) + '%' : 'NA';
+         return '<b>' + this.series.name + '</b><br/>' +
+                'Ano: ' + this.x + '<br/>' +
+                'Exportação: ' + Highcharts.numberFormat(this.y, 0, ',', '.') + '<br/>' +
+                'Variação YoY Exp.: ' + yoy_exp
+       }"
+         )
+       )
+```
+
+```{r}
+#| label: graf-interativo-importacao
+#| warning: false
+#| echo: false
+
+# gráfico interativo sobre importações
+df|>
+  filter(
+    date >= 1985,
+    date <= 2000
+  ) |>
+  hchart("column", 
+              hcaes(x = date, y = `Importacao (US$)`, group = subregion)
+       ) |>
+       hc_colors(c("#a3c1ad", "#a0d6b4", "#5f9ea0", "#317873")) |>
+       hc_tooltip(
+         useHTML = TRUE,
+         formatter = htmlwidgets::JS(
+           "function () {
+         var yoy_imp = this.point.yoy_change_imp !== null ? Highcharts.numberFormat(this.point.yoy_change_imp, 2) + '%' : 'NA';
+         return '<b>' + this.series.name + '</b><br/>' +
+                'Ano: ' + this.x + '<br/>' +
+                'Importação: ' + Highcharts.numberFormat(this.y, 0, ',', '.') + '<br/>' +
+                'Variação YoY Imp.: ' + yoy_imp
+       }"
+         )
+       )
+```
+
