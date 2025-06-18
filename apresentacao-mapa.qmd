@@ -1,7 +1,9 @@
 ---
-title: "apresentacao-mapa"
+title: "Dados de Comércio Internacional na Europa"
+Author: "Pedro Henrique Heinzen"
 format: html
 editor: visual
+css: custom.css
 ---
 
 ```{r}
@@ -12,6 +14,14 @@ editor: visual
 #| # Samuel Felipe Ronchi, Rogério de Oliveira Junior e Rafael Bruno Vargas 
 #| # estão trabalhando nos textos explicativos dos gráficos.
 ```
+
+Introdução
+----
+
+[Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+
+Mapa Mundial de Importação (1980 - 2023)
+----
 
 [Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
 
@@ -94,7 +104,10 @@ animate(p, fps = 3.5)
 
 ```
 
-[Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+Mapa Europeu de Importação (1985 - 2000)
+----
+
+[O mapa abaixo mostra a evolução das taxas de importação e relação ao PIB de cada país entre os anos de 1985 a 2000. Através da animação, podemos observar um aumento significante nas importações ao longo do tempo, principalmente após 1989 com a queda do Muro de Berlim. Anteriormente, devido ao isolamento comercial do bloco socialista, a Europa Oriental possuía uma baixa relação entre PIB e importações, como pode ser observado nos tons mais claros do mapa. Com a queda do Muro e consequente dissolução do bloco, estes países passaram a adotar a economia de mercado e abrir suas fronteiras para o comércio exterior. Como resultado, houve um aumento expressivo nas importações principalmente de bens de consumo, tecnologia e máquinas. Em 2000, já é possível ver esses países com cores mais escuras no mapa, indicando maior dependência de produtos importados.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
 
 ```{r}
 #| label: dados-europa
@@ -148,6 +161,9 @@ animate(p, fps = 10)
 
 ```
 
+Totais de Importação nas Regiões Europeias (1985 - 2000)
+----
+
 [Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
 
 ```{r}
@@ -199,34 +215,6 @@ df <- exp_imp_comp |>
   select(-lag_imp)
 ```
 
-```{r}
-#| label: graf-interativo-exportacao
-#| warning: false
-#| echo: false
-
-# gráfico interativo sobre exportações
-df|>
-  filter(
-    date >= 1985,
-    date <= 2000
-  ) |>
-  hchart("column", 
-              hcaes(x = date, y = `Exportacao (US$)`, group = subregion)
-       ) |>
-       hc_colors(c("#a3c1ad", "#a0d6b4", "#5f9ea0", "#317873")) |>
-       hc_tooltip(
-         useHTML = TRUE,
-         formatter = htmlwidgets::JS(
-           "function () {
-         var yoy_exp = this.point.yoy_change_exp !== null ? Highcharts.numberFormat(this.point.yoy_change_exp, 2) + '%' : 'NA';
-         return '<b>' + this.series.name + '</b><br/>' +
-                'Ano: ' + this.x + '<br/>' +
-                'Exportação: ' + Highcharts.numberFormat(this.y, 0, ',', '.') + '<br/>' +
-                'Variação YoY Exp.: ' + yoy_exp
-       }"
-         )
-       )
-```
 
 ```{r}
 #| label: graf-interativo-importacao
@@ -242,16 +230,108 @@ df|>
   hchart("column", 
               hcaes(x = date, y = `Importacao (US$)`, group = subregion)
        ) |>
-       hc_colors(c("#a3c1ad", "#a0d6b4", "#5f9ea0", "#317873")) |>
-       hc_tooltip(
-         useHTML = TRUE,
-         formatter = htmlwidgets::JS(
+  hc_title(
+      text = "Soma das Importações da Europa (em US$)",
+      align = "center",
+      style = list(
+        fontSize = "19px",
+        fontWeight = "bold",
+        fontFamily = "Arial"
+      )
+    ) |>
+    hc_subtitle(
+      text = "Totais por Sub-região Europeia e Variação Anual (%)",
+      align = "center",
+      style = list(
+        fontsize = "14px",
+        fontFamily = "Arial"
+      )
+    ) |>
+  hc_xAxis(
+    title = ""
+  ) |>
+  hc_credits(
+      enabled = TRUE,
+      text = "Fonte: Banco Mundial - Indicadores de Desenvolvimento Econômico",
+      style = list(
+        fontSize = "10px",
+        fontWeight = "bold",
+        fontFamily = "Arial"
+      )
+    ) |>
+  hc_colors(c("#a3c1ad", "#a0d6b4", "#5f9ea0", "#317873")) |>
+  hc_tooltip(
+    useHTML = TRUE,
+    formatter = htmlwidgets::JS(
            "function () {
          var yoy_imp = this.point.yoy_change_imp !== null ? Highcharts.numberFormat(this.point.yoy_change_imp, 2) + '%' : 'NA';
          return '<b>' + this.series.name + '</b><br/>' +
                 'Ano: ' + this.x + '<br/>' +
                 'Importação: ' + Highcharts.numberFormat(this.y, 0, ',', '.') + '<br/>' +
-                'Variação YoY Imp.: ' + yoy_imp
+                'Variação Anual Imp.: ' + yoy_imp
+       }"
+         )
+       )
+```
+
+Totais de Exportação nas Regiões Europeias (1985 - 2000)
+----
+
+[As exportações dos países do Leste Europeu sofreram uma transformação radical após 1989. Durante a década de 1980, sob o regime comunista, o desempenho exportador foi decepcionante, com participação declinante nas importações da OCDE. Após as reformas pós-1989, ocorreu uma rápida reorientação comercial dos mercados do CMEA para os mercados ocidentais, com a União Europeia aumentando sua participação de 68% para 77% nas exportações regionais. O crescimento explosivo de 1200% em 1989 foi impulsionado pelo colapso do CMEA, queda na demanda doméstica e reformas que tornaram as empresas mais responsivas ao mercado. Contudo, a sustentabilidade permaneceu incerta devido à base industrial obsoleta, privatização lenta e falta de infraestrutura adequada, evidenciando a dificuldade do bloco oriental em manter crescimento econômico saudável a longo prazo.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+
+```{r}
+#| label: graf-interativo-exportacao
+#| warning: false
+#| echo: false
+
+# gráfico interativo sobre exportações
+df|>
+  filter(
+    date >= 1985,
+    date <= 2000
+  ) |>
+  hchart("column", 
+              hcaes(x = date, y = `Exportacao (US$)`, group = subregion)
+       ) |>
+  hc_title(
+    text = "Soma das Exportações da Europa (em US$)",
+    align = "center",
+    style = list(
+      fontSize = "19px",
+      fontWeight = "bold",
+      fontFamily = "Arial"
+    )
+  ) |>
+  hc_subtitle(
+    text = "Totais por Sub-região Europeia e Variação Anual (%)",
+    align = "center",
+    style = list(
+      fontsize = "14px",
+      fontFamily = "Arial"
+    )
+  ) |>
+  hc_xAxis(
+    title = ""
+  ) |>
+  hc_credits(
+    enabled = TRUE,
+    text = "Fonte: Banco Mundial - Indicadores de Desenvolvimento Econômico",
+    style = list(
+      fontSize = "10px",
+      fontWeight = "bold",
+      fontFamily = "Arial"
+    )
+  ) |>
+  hc_colors(c("#a3c1ad", "#a0d6b4", "#5f9ea0", "#317873")) |>
+  hc_tooltip(
+    useHTML = TRUE,
+    formatter = htmlwidgets::JS(
+           "function () {
+         var yoy_exp = this.point.yoy_change_exp !== null ? Highcharts.numberFormat(this.point.yoy_change_exp, 2) + '%' : 'NA';
+         return '<b>' + this.series.name + '</b><br/>' +
+                'Ano: ' + this.x + '<br/>' +
+                'Exportação: ' + Highcharts.numberFormat(this.y, 0, ',', '.') + '<br/>' +
+                'Variação Anual Exp.: ' + yoy_exp
        }"
          )
        )
