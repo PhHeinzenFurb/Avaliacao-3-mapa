@@ -235,7 +235,7 @@ df|>
       )
     ) |>
     hc_subtitle(
-      text = "Totais por Sub-região Europeia e Variação Anual (%)",
+      text = "Totais por Sub-região e Variação Anual (%)",
       align = "center",
       style = list(
         fontsize = "14px",
@@ -297,7 +297,7 @@ df|>
     )
   ) |>
   hc_subtitle(
-    text = "Totais por Sub-região Europeia e Variação Anual (%)",
+    text = "Totais por Sub-região e Variação Anual (%)",
     align = "center",
     style = list(
       fontsize = "14px",
