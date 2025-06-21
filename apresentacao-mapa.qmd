@@ -17,7 +17,15 @@ css: custom.css
 
 ## Introdução
 
-[Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+[O presente trabalho procura desenvolver uma breve análise da evolução na performance das importações e exportações no mundo e, num segundo momento, do continente europeu. Primeiramente serão apresentados dois mapas animados demonstrando diferentes momentos de acordo com a variável da porcentagem do PIB em importações para os distintos países. O primeiro mapa fornece o contexto geral global destes momentos, enquanto o segundo expande o foco para o continente europeu. Logo após, seguem dois gráficos dos totais de importação e exportação para o bloco europeu, analisados por região, entre os anos de 1985 e 2000.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+
+[Este corte temporal permite uma análise importante e que serve como um dos pilares desta apresentação: O desempenho da Europa Oriental e sua transição de um mercado fechado, focado em parcerias internas, para um aberto à economia internacional principalmente após a queda de muro de Berlim e subsequente extinção do regime soviético. Este período representou um choque cultural e econômico para os países que integravam o bloco soviético, com relevante aumento nas transações do comércio internacional, estruturas defasadas frente ao bloco ocidental e o desafio de gerenciar um desempenho saudável após a abertura.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+
+[Os dados utilizados são originários dos [Indicadores de Desenvolvimento Econômico do Banco Mundial](https://databank.worldbank.org/source/world-development-indicators). São eles:]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+
+-   **Importação de Bens e Serviços (% PIB)** (`NE.IMP.GNFS.ZS`);\
+-   **Importação de Bens e Serviços (US\$)** (`NE.IMP.GNFS.CD`);\
+-   **Exportação de Bens e Serviços (US\$)** (`NE.EXP.GNFS.CD`)\
 
 ## Mapa Mundial de Importação (1980 - 2023)
 
@@ -160,7 +168,7 @@ animate(p, fps = 10)
 
 ## Totais de Importação nas Regiões Europeias (1985 - 2000)
 
-[Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+[O seguinte gráfico expõe a linha do tempo das importações entre os anos 1985 e 2000, onde podemos verificar mudanças expressivas de 1987 em diante. As importações na Europa Ocidental eram dominadas por produtos manufaturados, matérias-primas e energia. Já no Leste Europeu, o comércio era limitado e regulado devido às tensões ideológicas e diferentes estruturas econômicas. A queda do Muro de Berlim em 9 de novembro de 1989 simbolizou o colapso do Bloco Oriental e o fim da Guerra Fria. A reunificação da Alemanha, principalmente, permitiu a abertura de um vasto mercado na Europa Ocidental, e a antiga Alemanha Oriental começou a importar bens de consumo e tecnologia ocidentais. Progressivamente, os países do Leste Europeu, como Polônia, Hungria, Ucrânia entre outros países iniciaram transição para economias de mercado, gerando novas oportunidades para exportações da Europa Ocidental e permitindo a importação de produtos e mão de obra mais competitiva]{style="text-indent: 1.5cm; display: block; text-align: justify"}
 
 ```{r}
 #| label: geracao-tratamento-dados
