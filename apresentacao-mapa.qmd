@@ -29,7 +29,13 @@ css: custom.css
 
 ## Mapa Mundial de Importação (1980 - 2023)
 
-[Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+[Entre os anos 1980 e 1990, muitos países começaram a abrir suas economias. Houve reformas, reduziram impostos sobre importações e começaram a participar de blocos econômicos. Isso fez com que as importações aumentassem aos poucos em relação ao tamanho da economia (PIB). Com o avanço da globalização nos anos 1990, acordos como o NAFTA e a criação da OMC facilitaram ainda mais o comércio entre os países.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+
+[A partir dos anos 2000, o comércio entre os países cresceu bastante. Economias como a China se tornaram grandes participantes nas importações e exportações. Por isso, muitos países passaram a importar mais, aumentando o peso das importações em seus PIBs. Com a crise de 2008, a economia desacelerou, as pessoas e empresas compraram menos, e o comércio entre os países caiu. Isso fez com que o indicador de importações como % do PIB diminuísse em várias regiões.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+
+[Após a crise, o comércio internacional voltou a crescer, mas de forma mais lenta e com oscilações. Alguns países começaram a adotar políticas para proteger suas economias (protecionismo), enquanto outros seguiram mais abertos ao comércio. O comportamento do indicador variou bastante, dependendo da situação econômica de cada país e dos preços de produtos como petróleo e alimentos. A pandemia da COVID-19 em 2020 causou uma grande queda no comércio global. Fronteiras foram fechadas, fábricas pararam, e a economia global desacelerou. Tudo isso fez com que muitos países importassem menos, o que reduziu esse indicador no mundo.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+
+[Nos anos seguintes, o comércio voltou a crescer, mas com dificuldades. Os custos com transporte subiram, houve mudanças nas cadeias de produção e alguns países passaram a tentar produzir mais internamente. Mesmo assim, muitos voltaram a importar bastante, puxados pela reabertura econômica e aumento da demanda por produtos.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
 
 ```{r}
 #| label: extracao-dados
@@ -112,7 +118,9 @@ animate(p, fps = 3.5)
 
 ## Mapa Europeu de Importação (1985 - 2000)
 
-[O mapa abaixo mostra a evolução das taxas de importação e relação ao PIB de cada país entre os anos de 1985 a 2000. Através da animação, podemos observar um aumento significante nas importações ao longo do tempo, principalmente após 1989 com a queda do Muro de Berlim. Anteriormente, devido ao isolamento comercial do bloco socialista, a Europa Oriental possuía uma baixa relação entre PIB e importações, como pode ser observado nos tons mais claros do mapa. Com a queda do Muro e consequente dissolução do bloco, estes países passaram a adotar a economia de mercado e abrir suas fronteiras para o comércio exterior. Como resultado, houve um aumento expressivo nas importações principalmente de bens de consumo, tecnologia e máquinas. Em 2000, já é possível ver esses países com cores mais escuras no mapa, indicando maior dependência de produtos importados.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+[O gráfico mostra a evolução das taxas de importação na Europa entre 1985 e 200 em relação ao PIB de cada país. É possível observar como as importações aumentaram significativamente ao longo do tempo, especialmente após 1989, com a queda do Muro de Berlim. Antes da queda, os países da Europa Oriental (como Alemanha Oriental, Polônia, Hungria, entre outros) tinham baixa participação das importações no PIB devido ao sistema socialista e ao isolamento comercial. Isso é visível em 1987, quando esses países aparecem em tons mais claros no mapa.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+
+[Após a queda do Muro, esses países passaram a adotar economias de mercado e abriram suas fronteiras para o comércio exterior. Como resultado, houve um aumento expressivo das importações, principalmente de bens de consumo, tecnologia e máquinas. Em 2000, já é possível ver esses países com cores mais escuras no mapa, indicando maior dependência de produtos importados. A queda do Muro de Berlim, portanto, marcou uma mudança econômica profunda na Europa, promovendo a integração dos países do Leste ao mercado internacional e intensificando o fluxo de importações.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
 
 ```{r}
 #| label: dados-europa
@@ -169,6 +177,8 @@ animate(p, fps = 10)
 ## Totais de Importação nas Regiões Europeias (1985 - 2000)
 
 [O seguinte gráfico expõe a linha do tempo das importações entre os anos 1985 e 2000, onde podemos verificar mudanças expressivas de 1987 em diante. As importações na Europa Ocidental eram dominadas por produtos manufaturados, matérias-primas e energia. Já no Leste Europeu, o comércio era limitado e regulado devido às tensões ideológicas e diferentes estruturas econômicas. A queda do Muro de Berlim em 9 de novembro de 1989 simbolizou o colapso do Bloco Oriental e o fim da Guerra Fria. A reunificação da Alemanha, principalmente, permitiu a abertura de um vasto mercado na Europa Ocidental, e a antiga Alemanha Oriental começou a importar bens de consumo e tecnologia ocidentais. Progressivamente, os países do Leste Europeu, como Polônia, Hungria, Ucrânia entre outros países iniciaram transição para economias de mercado, gerando novas oportunidades para exportações da Europa Ocidental e permitindo a importação de produtos e mão de obra mais competitiva]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+
+[As décadas seguintes foram marcadas por uma intensificação da globalização. As importações europeias cresceram impulsionadas pela liberalização do comércio, avanços tecnológicos e a ascensão de novas potências econômicas, e os Estados Unidos continuou sendo um parceiro comercial fundamental. A introdução do Euro em 1999 simplificou as transações comerciais entre os países da Zona do Euro, reduzindo custos de câmbio e impulsionando o comércio intrarregional.]{style="text-indent: 1.5cm; display: block; text-align: justify"}
 
 ```{r}
 #| label: geracao-tratamento-dados
