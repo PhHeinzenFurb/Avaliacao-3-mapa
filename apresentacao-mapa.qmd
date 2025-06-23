@@ -1,6 +1,5 @@
 ---
 title: "Dados de Comércio Internacional na Europa"
-Author: "Pedro Henrique Heinzen"
 format: html
 editor: visual
 css: custom.css
@@ -10,9 +9,11 @@ css: custom.css
 #| label: integrantes-grupo
 #| include: false
 #| 
-#| # Pedro Henrique Heinzen: gráficos e formatação do texto
-#| # Samuel Felipe Ronchi, Rogério de Oliveira Junior e Rafael Bruno Vargas 
-#| # estão trabalhando nos textos explicativos dos gráficos.
+#| # Pedro Henrique Heinzen: gráficos e formatação do texto e introdução.
+#| # Samuel Felipe Ronchi: Texto gráfico Totais de Importação nas Regiões Europeias (1985 - 2000);
+#| # Rogério de Oliveira Junior: texto gráfico Mapa Mundial de Importação (1980 - 2023);
+#| # Rafael Bruno Vargas: texto Mapa Europeu de Importação (1985 - 2000);
+#| # Equipe trabalhou no texto sobre Totais de Exportação nas Regiões Europeias (1985 - 2000).
 ```
 
 ## Introdução
@@ -48,6 +49,7 @@ library(sf)
 library(rnaturalearth)
 library(gganimate)
 library(ggthemes)
+library(gifski)
 
 options(scipen = 999)
 
@@ -175,6 +177,8 @@ animate(p, fps = 10)
 ```
 
 ## Totais de Importação nas Regiões Europeias (1985 - 2000)
+
+[*É necessário observar que nos próximos gráficos é possível interagir ao escolher a ou as regiões de destaque, assim como para cada ano, ao passar o indicador por cima, é possível ver o total do ano e a variação ano a ano.*]{style="text-indent: 1.5cm; display: block; text-align: justify"}
 
 [O seguinte gráfico expõe a linha do tempo das importações entre os anos 1985 e 2000, onde podemos verificar mudanças expressivas de 1987 em diante. As importações na Europa Ocidental eram dominadas por produtos manufaturados, matérias-primas e energia. Já no Leste Europeu, o comércio era limitado e regulado devido às tensões ideológicas e diferentes estruturas econômicas. A queda do Muro de Berlim em 9 de novembro de 1989 simbolizou o colapso do Bloco Oriental e o fim da Guerra Fria. A reunificação da Alemanha, principalmente, permitiu a abertura de um vasto mercado na Europa Ocidental, e a antiga Alemanha Oriental começou a importar bens de consumo e tecnologia ocidentais. Progressivamente, os países do Leste Europeu, como Polônia, Hungria, Ucrânia entre outros países iniciaram transição para economias de mercado, gerando novas oportunidades para exportações da Europa Ocidental e permitindo a importação de produtos e mão de obra mais competitiva]{style="text-indent: 1.5cm; display: block; text-align: justify"}
 
@@ -353,18 +357,18 @@ df|>
 
 ## Referências
 
-BALDWIN, Richard. The Great Convergence: Information Technology and the New Globalization. Cambridge: Harvard University Press, 2016.
+[BALDWIN, Richard. The Great Convergence: Information Technology and the New Globalization. Cambridge: Harvard University Press, 2016.]{style="display: block; text-align: justify"}
 
-FMI – FUNDO MONETÁRIO INTERNACIONAL. World Economic Outlook Reports. Washington, DC: IMF, diversos anos. Disponível em: https://www.imf.org. Acesso em: 21 jun. 2025.
+[FMI – FUNDO MONETÁRIO INTERNACIONAL. World Economic Outlook Reports. Washington, DC: IMF, diversos anos. Disponível em: https://www.imf.org. Acesso em: 21 jun. 2025.]{style="display: block; text-align: justify"}
 
-HOEKMAN, Bernard; DJANKOV, Simeon. Determinants of the Export Structure of Countries in Central and Estern Europe. **The World bank Economic Review**. v. 11, n. 3, p. 471-487, \[S.l.\]. Disponível em: https://documents.banquemondiale.org/fr/publication/documents-reports/documentdetail/415691468251106363/determinants-of-the-export-structure-of-countries-in-central-and-eastern-europe. Acesso em: 18 jun. 2025.
+[HOEKMAN, Bernard; DJANKOV, Simeon. Determinants of the Export Structure of Countries in Central and Estern Europe. **The World bank Economic Review**. v. 11, n. 3, p. 471-487, \[S.l.\]. Disponível em: https://documents.banquemondiale.org/fr/publication/documents-reports/documentdetail/415691468251106363/determinants-of-the-export-structure-of-countries-in-central-and-eastern-europe. Acesso em: 18 jun. 2025.]{style="display: block; text-align: justify"}
 
-KAMINSKI, Bartlomiej. How the Market Transition Affected Export Performance in the Central European Economies. 1993. 38 f. \[S.l.\], 1993. Disponível em: https://documents.worldbank.org/pt/publication/documents-reports/documentdetail/762141468749375034. Acesso em: 18 jun. 2025.
+[KAMINSKI, Bartlomiej. How the Market Transition Affected Export Performance in the Central European Economies. 1993. 38 f. \[S.l.\], 1993. Disponível em: https://documents.worldbank.org/pt/publication/documents-reports/documentdetail/762141468749375034. Acesso em: 18 jun. 2025.]{style="display: block; text-align: justify"}
 
-KRUGMAN, Paul R.; OBSTFELD, Maurice. Economia Internacional: Teoria e Política. 10. ed. São Paulo: Pearson, 2018.
+[KRUGMAN, Paul R.; OBSTFELD, Maurice. Economia Internacional: Teoria e Política. 10. ed. São Paulo: Pearson, 2018.]{style="display: block; text-align: justify"}
 
-OCDE – ORGANIZAÇÃO PARA COOPERAÇÃO E DESENVOLVIMENTO ECONÔMICO. OECD Statistics and Data. Paris: OECD, diversos anos. Disponível em: https://www.oecd.org. Acesso em: 21 jun. 2025.
+[OCDE – ORGANIZAÇÃO PARA COOPERAÇÃO E DESENVOLVIMENTO ECONÔMICO. OECD Statistics and Data. Paris: OECD, diversos anos. Disponível em: https://www.oecd.org. Acesso em: 21 jun. 2025.]{style="display: block; text-align: justify"}
 
-UNCTAD – UNITED NATIONS CONFERENCE ON TRADE AND DEVELOPMENT. UNCTADstat. Genebra: UNCTAD, diversos anos. Disponível em: https://unctad.org/statistics. Acesso em: 21 jun. 2025.
+[UNCTAD – UNITED NATIONS CONFERENCE ON TRADE AND DEVELOPMENT. UNCTADstat. Genebra: UNCTAD, diversos anos. Disponível em: https://unctad.org/statistics. Acesso em: 21 jun. 2025.]{style="display: block; text-align: justify"}
 
-WTO – WORLD TRADE ORGANIZATION. World Trade Report. Genebra: WTO, diversos anos. Disponível em: https://www.wto.org. Acesso em: 21 jun. 2025.
+[WTO – WORLD TRADE ORGANIZATION. World Trade Report. Genebra: WTO, diversos anos. Disponível em: https://www.wto.org. Acesso em: 21 jun. 2025.]{style="display: block; text-align: justify"}
