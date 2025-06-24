@@ -178,7 +178,7 @@ animate(p, fps = 10)
 
 ## Totais de Importação nas Regiões Europeias (1985 - 2000)
 
-[*É necessário observar que nos próximos gráficos é possível interagir ao escolher a ou as regiões de destaque, assim como para cada ano, ao passar o indicador por cima, é possível ver o total do ano e a variação ano a ano.*]{style="text-indent: 1.5cm; display: block; text-align: justify"}
+*Nos próximos gráficos é possível interagir ao escolher a ou as regiões de destaque, assim como para cada ano, ao passar o indicador por cima, é possível ver o total do ano e a variação ano a ano.*
 
 [O seguinte gráfico expõe a linha do tempo das importações entre os anos 1985 e 2000, onde podemos verificar mudanças expressivas de 1987 em diante. As importações na Europa Ocidental eram dominadas por produtos manufaturados, matérias-primas e energia. Já no Leste Europeu, o comércio era limitado e regulado devido às tensões ideológicas e diferentes estruturas econômicas. A queda do Muro de Berlim em 9 de novembro de 1989 simbolizou o colapso do Bloco Oriental e o fim da Guerra Fria. A reunificação da Alemanha, principalmente, permitiu a abertura de um vasto mercado na Europa Ocidental, e a antiga Alemanha Oriental começou a importar bens de consumo e tecnologia ocidentais. Progressivamente, os países do Leste Europeu, como Polônia, Hungria, Ucrânia entre outros países iniciaram transição para economias de mercado, gerando novas oportunidades para exportações da Europa Ocidental e permitindo a importação de produtos e mão de obra mais competitiva]{style="text-indent: 1.5cm; display: block; text-align: justify"}
 
